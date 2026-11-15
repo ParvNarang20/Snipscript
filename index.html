@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SnipScript</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <div class="logo">S</div>
+        <div>
+          <h1>SnipScript</h1>
+          <p>Copy text from anywhere on your screen</p>
+        </div>
+      </header>
+
+      <nav class="navigation">
+        <button class="nav-button active" data-page="dashboard">Home</button>
+        <button class="nav-button" data-page="history">History</button>
+        <button class="nav-button" data-page="settings">Settings</button>
+      </nav>
+
+      <main>
+        <section class="page active" id="dashboard-page">
+          <div class="welcome-card">
+            <p class="label">LOCAL OCR · PRIVATE</p>
+            <h2>Make screen text editable</h2>
+            <p>Select a part of your screen. SnipScript reads the words and copies them.</p>
+            <button class="button primary" id="start-button">Start snipping</button>
+            <p class="shortcut-help">Keyboard shortcut: <span id="shortcut-label">Ctrl + Shift + X</span></p>
+          </div>
+
+          <div class="summary-card">
+            <span>Total saved results</span>
+            <strong id="result-count">0</strong>
+          </div>
+
+          <div class="section-title">
+            <h3>Recent results</h3>
+            <button class="link-button" data-page="history">See all</button>
+          </div>
+          <div id="recent-history" class="history-list"></div>
+        </section>
+
+        <section class="page" id="history-page">
+          <div class="section-title">
+            <div>
+              <h2>History</h2>
+              <p>Your results are saved on this computer.</p>
+            </div>
+            <button class="button secondary" id="clear-history">Clear all</button>
+          </div>
+          <div id="all-history" class="history-list"></div>
+        </section>
+
+        <section class="page" id="settings-page">
+          <div class="section-title">
+            <div>
+              <h2>Settings</h2>
+              <p>Change the shortcut used to start screen selection.</p>
+            </div>
+          </div>
+          <div class="settings-card">
+            <label for="shortcut-input">Keyboard shortcut</label>
+            <p>Example: CommandOrControl+Shift+X</p>
+            <div class="shortcut-row">
+              <input id="shortcut-input" value="CommandOrControl+Shift+X">
+              <button class="button primary" id="save-shortcut">Save shortcut</button>
+            </div>
+            <div class="privacy-note">
+              OCR happens on this computer. Your screen and text are not uploaded.
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <div class="modal" id="result-modal">
+      <section class="result-card">
+        <div class="result-heading">
+          <div>
+            <p class="label">OCR RESULT</p>
+            <h2>Recognised text</h2>
+          </div>
+          <button class="close-button" id="close-result">×</button>
+        </div>
+        <p id="result-message">Text copied to your clipboard.</p>
+        <textarea id="result-text" placeholder="Recognised text appears here"></textarea>
+        <div class="result-buttons">
+          <button class="button secondary" id="select-all">Select all</button>
+          <button class="button secondary" id="clear-text">Clear</button>
+          <button class="button secondary" id="retry-ocr">Retry OCR</button>
+          <button class="button secondary" id="save-text">Save as TXT</button>
+          <button class="button primary" id="copy-text">Copy text</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="selection-screen">
+      <img id="screen-image" alt="Captured screen">
+      <div class="selection-message">Drag over text. Press Escape to cancel.</div>
+      <div id="selection-box"></div>
+    </div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>
