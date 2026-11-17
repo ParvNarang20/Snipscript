@@ -20,6 +20,7 @@ const HISTORY_FILE = path.join(DATA_FOLDER, 'history.json');
 
 let mainWindow;
 let overlayWindow;
+let selectionInProgress = false;
 let lastImage;
 let ocrWorker;
 
@@ -67,7 +68,8 @@ function createWindow() {
 
 // Take a picture of the primary monitor and show the selection window.
 async function startSelection() {
-  if (overlayWindow) return;
+  if (selectionInProgress || overlayWindow) return;
+  selectionInProgress = true;
 
   try {
     const display = screen.getPrimaryDisplay();
@@ -117,7 +119,10 @@ async function startSelection() {
     });
   } catch (error) {
     overlayWindow = null;
-    mainWindow.webContents.send('show-error', error.message);
+    selectionInProgress = false;
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('show-error', error.message);
+    }
   }
 }
 
