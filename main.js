@@ -49,7 +49,12 @@ function getShortcut() {
 
 function getHistory() {
   const history = readJson(HISTORY_FILE, []);
-  return Array.isArray(history) ? history : [];
+  if (!Array.isArray(history)) return [];
+
+  return history.filter(function (item) {
+    return item && typeof item.id === 'string' &&
+      typeof item.text === 'string' && typeof item.date === 'string';
+  });
 }
 
 function createWindow() {
