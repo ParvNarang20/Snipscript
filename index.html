@@ -77,7 +77,7 @@
       </main>
     </div>
 
-    <div class="message" id="message"></div>
+    <div class="message" id="message" role="status" aria-live="polite"></div>
 
     <div class="modal" id="result-modal">
       <section class="result-card">
@@ -86,7 +86,7 @@
             <p class="label">OCR RESULT</p>
             <h2>Recognised text</h2>
           </div>
-          <button class="close-button" id="close-result">×</button>
+          <button class="close-button" id="close-result" aria-label="Close result">×</button>
         </div>
         <p id="result-message">Text copied to your clipboard.</p>
         <textarea id="result-text" placeholder="Recognised text appears here"></textarea>
