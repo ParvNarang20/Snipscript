@@ -263,9 +263,9 @@ function registerActions() {
     });
 
     if (!file.canceled && file.filePath) {
-      fs.writeFileSync(file.filePath, text, 'utf8');
+      fs.writeFileSync(file.filePath, String(text), 'utf8');
     }
-    return !file.canceled;
+    return !file.canceled && Boolean(file.filePath);
   });
 }
 
