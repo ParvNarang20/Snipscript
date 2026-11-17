@@ -23,6 +23,7 @@ let overlayWindow;
 let selectionInProgress = false;
 let lastImage;
 let ocrWorker;
+let ocrWorkerPromise;
 
 // Read a JSON file. If it does not exist yet, use the given starting value.
 function readJson(file, startingValue) {
@@ -130,19 +131,28 @@ async function startSelection() {
 // Create the OCR worker the first time the user selects text.
 async function readText(image) {
   if (!ocrWorker) {
-    const languageFolder = path.join(
-      __dirname,
-      'node_modules',
-      '@tesseract.js-data',
-      'eng',
-      '4.0.0_best_int'
-    );
+    if (!ocrWorkerPromise) {
+      const languageFolder = path.join(
+        __dirname,
+        'node_modules',
+        '@tesseract.js-data',
+        'eng',
+        '4.0.0_best_int'
+      );
 
-    ocrWorker = await createWorker('eng', 1, {
-      langPath: languageFolder,
-      cachePath: path.join(DATA_FOLDER, 'tessdata'),
-      gzip: true
-    });
+      ocrWorkerPromise = createWorker('eng', 1, {
+        langPath: languageFolder,
+        cachePath: path.join(DATA_FOLDER, 'tessdata'),
+        gzip: true
+      }).then(function (worker) {
+        ocrWorker = worker;
+        return worker;
+      }).finally(function () {
+        ocrWorkerPromise = null;
+      });
+    }
+
+    await ocrWorkerPromise;
   }
 
   const result = await ocrWorker.recognize(image);
