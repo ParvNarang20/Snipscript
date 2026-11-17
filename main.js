@@ -116,6 +116,7 @@ async function startSelection() {
     });
     overlayWindow.on('closed', function () {
       overlayWindow = null;
+      selectionInProgress = false;
     });
   } catch (error) {
     overlayWindow = null;
