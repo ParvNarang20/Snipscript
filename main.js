@@ -214,7 +214,7 @@ function registerActions() {
     if (overlayWindow) overlayWindow.close();
   });
   ipcMain.handle('finish-selection', async function (_event, image) {
-    if (typeof image !== 'string' || !image.startsWith('data:image/png;base64,')) {
+    if (typeof image !== 'string' || image.length > 25_000_000 || !image.startsWith('data:image/png;base64,')) {
       throw new Error('The selected image is not valid.');
     }
 
