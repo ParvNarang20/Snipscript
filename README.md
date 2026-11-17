@@ -54,6 +54,8 @@ The Windows build is configured to make an NSIS installer. Build and check it on
 
 Settings and history are stored as JSON in Electron's `userData` folder. SnipScript does not save screen images or upload data.
 
+Use **Clear all** on the History page to remove saved OCR results. To reset the saved shortcut too, close SnipScript and remove its `userData` folder.
+
 ## Check after running
 
 | Action | Expected result | Actual result |
