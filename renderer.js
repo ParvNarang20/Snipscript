@@ -226,6 +226,11 @@ function setupDashboard() {
   document.querySelector('#close-result').addEventListener('click', function () {
     document.querySelector('#result-modal').classList.remove('visible');
   });
+  window.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      document.querySelector('#result-modal').classList.remove('visible');
+    }
+  });
   document.querySelector('#copy-text').addEventListener('click', async function () {
     var text = document.querySelector('#result-text').value;
     await app.copyText(text);
