@@ -37,7 +37,9 @@ function readJson(file, startingValue) {
 
 function saveJson(file, value) {
   fs.mkdirSync(DATA_FOLDER, { recursive: true });
-  fs.writeFileSync(file, JSON.stringify(value, null, 2), 'utf8');
+  const temporaryFile = `${file}.tmp`;
+  fs.writeFileSync(temporaryFile, JSON.stringify(value, null, 2), 'utf8');
+  fs.renameSync(temporaryFile, file);
 }
 
 function getShortcut() {
