@@ -239,6 +239,8 @@ function registerActions() {
     return getHistory();
   });
   ipcMain.handle('delete-history-item', function (_event, id) {
+    if (typeof id !== 'string') return;
+
     const oldHistory = getHistory();
     const newHistory = [];
     for (let i = 0; i < oldHistory.length; i += 1) {
