@@ -274,7 +274,8 @@ function setupDashboard() {
   }
 
   function showShortcut(shortcut) {
-    var label = shortcut.replace('CommandOrControl', 'Ctrl');
+    var modifier = /Mac/.test(navigator.platform) ? '⌘' : 'Ctrl';
+    var label = shortcut.replace('CommandOrControl', modifier);
     label = label.split('+').join(' + ');
     document.querySelector('#shortcut-label').textContent = label;
   }
