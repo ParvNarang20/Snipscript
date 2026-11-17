@@ -244,7 +244,8 @@ function setupDashboard() {
   });
   document.querySelector('#save-text').addEventListener('click', async function () {
     var text = document.querySelector('#result-text').value;
-    await app.saveTextFile(text);
+    var saved = await app.saveTextFile(text);
+    if (saved) showMessage('Text file saved.');
   });
   document.querySelector('#retry-ocr').addEventListener('click', async function () {
     if (!lastResult) return;
