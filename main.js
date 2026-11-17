@@ -10,6 +10,7 @@ const {
   screen
 } = require('electron');
 const fs = require('node:fs');
+const { randomUUID } = require('node:crypto');
 const path = require('node:path');
 const { createWorker } = require('tesseract.js');
 
@@ -161,7 +162,7 @@ async function readText(image) {
 
 function addToHistory(text) {
   const item = {
-    id: Date.now().toString(),
+    id: randomUUID(),
     text,
     date: new Date().toISOString()
   };
@@ -173,7 +174,7 @@ function addToHistory(text) {
 async function finishOcr(image) {
   const text = await readText(image);
   const result = text ? addToHistory(text) : {
-    id: Date.now().toString(),
+    id: randomUUID(),
     text: '',
     date: new Date().toISOString()
   };
